@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Slider</title>
+</head>
+<body>
+    <form action="#">
+        <fieldset class="filter-item">
+            <legend>Slider</legend>
+            <div class="range-filter">
+                <div class="range-controls">
+                    <div class="scale">
+                        <div class="bar" style="
+                        margin-left:18%;
+                        width:50%;
+                        "></div>
+                    </div>
+                    <div class="toggle toggle-mix" tabindex="0" style="
+                    left: 20%;
+                    ">
+                    </div>
+                    <div class="toggle toggle-max" tabindex="0" style="
+                    left: 65%;
+                    ">
+                    </div>
+                </div>
+                <div class="price-controls">
+                    <label for="min-price">
+                        от <input type="number" id="min-price" value="0">
+                    </label>
+                    <label for="max-price">
+                        от <input type="number" id="max-price" value="15000">
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <script src="/main.js"></script>
+</body>
+</html>
