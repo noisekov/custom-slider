@@ -1,2 +1,4 @@
 # custom slider
-new project
+
+new Slider
+https://noisekov.github.io/custom-slider/
