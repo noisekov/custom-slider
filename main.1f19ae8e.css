@@ -12,34 +12,29 @@ body {
   color: #000;
 }
 
-.range-filter {
+.range-field {
+  position: relative;
   width: 100%;
   max-width: 800px;
+  margin: 100px 0 0 100px;
 }
 
-.range-controls {
-  position: relative;
-  background-color: #f1f1f1;
-  padding: 40px 0;
-}
-
-.range-controls .scale {
+.range-field .scale {
   height: 2px;
   background-color: #d7dcde;
 }
 
-.range-controls .bar {
+.range-field .bar {
   height: 2px;
   background-color: #00ca74;
 }
 
-.range-controls .toggle {
+.range-field .toggle {
   position: absolute;
-  top: 32px;
-  width: 4px;
-  height: 4px;
-  border: 8px solid gray;
-  background-color: #ababab;
+  top: -5px;
+  width: 12px;
+  height: 12px;
+  background-color: gray;
   border-radius: 50%;
   cursor: pointer;
 }

@@ -196,34 +196,41 @@ require("./style.scss");
 
 var toggleMin = document.querySelector(".toggle-min");
 var toggleMax = document.querySelector(".toggle-max");
-var widthField = document.querySelector(".range-controls");
+var widthField = document.querySelector(".range-field");
 var greenBar = document.querySelector(".bar");
 
 toggleMax.onmousedown = function (evt) {
   toggleMax.style.transform = "scale(1.1)";
+  moveAt(evt.pageX);
 
   function moveAt(pageX) {
+    var fieldRect = widthField.getBoundingClientRect().left;
+    toggleMax.style.left = pageX - fieldRect - toggleMax.offsetWidth / 2 + "px";
+    greenBar.style.width = pageX - fieldRect - toggleMax.offsetWidth / 2 + "px";
     var widthPaddingContainer = widthField.offsetWidth;
-    toggleMax.style.left = pageX - toggleMax.offsetWidth / 2 - evt.offsetX + "px";
-    greenBar.style.width = pageX - toggleMax.offsetWidth / 2 - evt.offsetX + "px";
 
     if (+greenBar.style.width.replace("px", "") > widthPaddingContainer) {
       greenBar.style.width = widthPaddingContainer + "px";
     }
 
+    if (+greenBar.style.width.replace("px", "") < 0) {
+      greenBar.style.width = 0 + "px";
+    }
+
     if (+toggleMax.style.left.replace("px", "") > widthPaddingContainer) {
       toggleMax.style.left = widthPaddingContainer - toggleMax.offsetWidth + "px";
     }
-  }
 
-  moveAt(evt.pageX);
+    if (+toggleMax.style.left.replace("px", "") < 0) {
+      toggleMax.style.left = 0 + "px";
+    }
+  }
 
   function onMouseMove(evt) {
     moveAt(evt.pageX);
   }
 
-  document.addEventListener("mousemove", onMouseMove); // let toggleMaxPositionWhenClick = +toggleMax.style.left.replace("px", "")
-  // greenBar.style.width = `${toggleMaxPositionWhenClick} - ${widthPaddingContainer}`;
+  document.addEventListener("mousemove", onMouseMove);
 
   document.onmouseup = function () {
     document.removeEventListener('mousemove', onMouseMove);
@@ -263,7 +270,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51854" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52985" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
