@@ -11,24 +11,24 @@ body {
     color: #000;
 }
 .range-field {
-    position: relative;
     width: 100%;
     max-width: 800px;
-    margin: 100px 0 0 100px;
+    margin: 200px 0 0 200px;
 }
 .range-field .scale {
-    height: 2px;
+    position: relative;
+    height: 5px;
     background-color: #d7dcde;
 }
 .range-field .bar {
-    height: 2px;
+    height: 5px;
     background-color: #00ca74;
 }
 .range-field .toggle{
     position: absolute;
-    top: -5px;
-    width: 12px;
-    height: 12px;
+    top: -4px;
+    width: 13px;
+    height: 13px;
     background-color: gray;
     border-radius: 50%;
     cursor: pointer;
