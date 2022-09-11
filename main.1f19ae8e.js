@@ -198,7 +198,7 @@ var toggleMin = document.querySelector(".toggle-min");
 var toggleMax = document.querySelector(".toggle-max");
 var widthField = document.querySelector(".range-field");
 var greenBar = document.querySelector(".bar");
-var scaleBar = document.querySelector(".scale");
+var scaleBar = document.querySelector(".scale"); //move greenBar and toggle
 
 function moveAt(pageX) {
   var fieldRect = widthField.getBoundingClientRect().left;
@@ -221,11 +221,12 @@ function moveAt(pageX) {
   if (+toggleMax.style.left.replace("px", "") < 0) {
     toggleMax.style.left = 0 + "px";
   }
-}
+} //click to scaleBar
+
 
 scaleBar.addEventListener("click", function (evt) {
   moveAt(evt.pageX);
-});
+}); //mousemove
 
 toggleMax.onmousedown = function (evt) {
   toggleMax.style.transform = "scale(1.1)";
@@ -241,6 +242,28 @@ toggleMax.onmousedown = function (evt) {
     document.removeEventListener('mousemove', onMouseMove);
     toggleMax.style.transform = "scale(1)";
     document.onmouseup = null;
+  };
+
+  toggleMax.ondragstart = function () {
+    return false;
+  };
+}; //touchmove
+
+
+toggleMax.touchstart = function (evt) {
+  toggleMax.style.transform = "scale(1.1)";
+  moveAt(evt.pageX);
+
+  function onMouseMove(evt) {
+    moveAt(evt.pageX);
+  }
+
+  document.addEventListener("touchmove", onMouseMove);
+
+  document.ontouchend = function () {
+    document.removeEventListener('mousemove', onMouseMove);
+    toggleMax.style.transform = "scale(1)";
+    document.ontouchend = null;
   };
 
   toggleMax.ondragstart = function () {
@@ -275,7 +298,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54720" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56278" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
