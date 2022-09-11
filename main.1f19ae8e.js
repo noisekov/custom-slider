@@ -250,7 +250,7 @@ toggleMax.onmousedown = function (evt) {
 }; //touchmove
 
 
-toggleMax.touchstart = function (evt) {
+toggleMax.ontouchstart = function (evt) {
   toggleMax.style.transform = "scale(1.1)";
   moveAt(evt.pageX);
 
