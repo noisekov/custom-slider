@@ -22,6 +22,7 @@ body {
   position: relative;
   height: 5px;
   background-color: #d7dcde;
+  cursor: pointer;
 }
 
 .range-field .bar {
@@ -37,6 +38,10 @@ body {
   background-color: gray;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.range-field .toggle:hover {
+  transform: scale(1.1);
 }
 
 /*# sourceMappingURL=/main.1f19ae8e.css.map */

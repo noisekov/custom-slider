@@ -198,7 +198,7 @@ var toggleMin = document.querySelector(".toggle-min");
 var toggleMax = document.querySelector(".toggle-max");
 var widthField = document.querySelector(".range-field");
 var greenBar = document.querySelector(".bar");
-var scaleBar = document.querySelector(".scale"); //move greenBar and toggle
+var scaleBar = document.querySelector(".scale"); //move greenBar and toggleMax
 
 function moveAt(pageX) {
   var fieldRect = widthField.getBoundingClientRect().left;
@@ -221,7 +221,26 @@ function moveAt(pageX) {
   if (+toggleMax.style.left.replace("px", "") < 0) {
     toggleMax.style.left = 0 + "px";
   }
-}
+} //move greenBar and toggleMin
+// function moveAtMin(pageX) {
+//     const fieldRect = widthField.getBoundingClientRect().left;
+//     toggleMin.style.left = pageX - fieldRect - toggleMax.offsetWidth / 2 + "px";
+//     greenBar.style.width = pageX - fieldRect - toggleMax.offsetWidth / 2 + "px";
+//     const widthPaddingContainer = widthField.offsetWidth;
+//     if (+greenBar.style.width.replace("px", "") > widthPaddingContainer) {
+//         greenBar.style.width = widthPaddingContainer + "px"
+//     } 
+//     if (+greenBar.style.width.replace("px", "") < 0) {
+//         greenBar.style.width = 0 + "px"
+//     } 
+//     if (+toggleMax.style.left.replace("px", "") > widthPaddingContainer) {
+//         toggleMax.style.left = widthPaddingContainer - toggleMax.offsetWidth + "px" 
+//     }
+//     if (+toggleMax.style.left.replace("px", "") < 0) {
+//         toggleMax.style.left = 0 + "px" 
+//     }
+// }
+
 
 function moveTouch(clientX) {
   var fieldRect = widthField.getBoundingClientRect().left;
@@ -247,12 +266,7 @@ function moveTouch(clientX) {
 } //click to scaleBar
 
 
-scaleBar.addEventListener("click", function (evt) {
-  moveAt(evt.pageX);
-}); //mousemove
-
-toggleMax.onmousedown = function (evt) {
-  toggleMax.style.transform = "scale(1.1)";
+scaleBar.onmousedown = function (evt) {
   moveAt(evt.pageX);
 
   function onMouseMove(evt) {
@@ -263,14 +277,43 @@ toggleMax.onmousedown = function (evt) {
 
   document.onmouseup = function () {
     document.removeEventListener('mousemove', onMouseMove);
-    toggleMax.style.transform = "scale(1)";
     document.onmouseup = null;
   };
+
+  scaleBar.ondragstart = function () {
+    return false;
+  };
+}; //mousemove
+
+
+toggleMax.onmousedown = function (evt) {
+  moveAt(evt.pageX); // function onMouseMove (evt) {
+  //     moveAt(evt.pageX)
+  // }
+  // document.addEventListener("mousemove", onMouseMove)
+  // document.onmouseup = function () {
+  //     document.removeEventListener('mousemove', onMouseMove);
+  //     document.onmouseup = null;
+  // }
 
   toggleMax.ondragstart = function () {
     return false;
   };
-}; //touchmove it code doesnt work
+}; // toggleMin.onmousedown = function(evt) {
+//     moveAtMin(evt.pageX)
+//     function onMouseMove (evt) {
+//         moveAtMin(evt.pageX)
+//     }
+//     document.addEventListener("mousemove", onMouseMove)
+//     document.onmouseup = function () {
+//         document.removeEventListener('mousemove', onMouseMove);
+//         document.onmouseup = null;
+//     }
+//     toggleMin.ondragstart = function () {
+//         return false
+//     } 
+// }
+//touchmove it code doesnt work
 
 
 toggleMax.ontouchstart = function (evt) {
@@ -321,7 +364,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60660" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61661" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
