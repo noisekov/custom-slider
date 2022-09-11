@@ -6,6 +6,8 @@ const widthField = document.querySelector(".range-field")
 const greenBar = document.querySelector(".bar")
 const scaleBar = document.querySelector(".scale")
 
+
+//move greenBar and toggle
 function moveAt(pageX) {
     const fieldRect = widthField.getBoundingClientRect().left;
 
@@ -27,10 +29,33 @@ function moveAt(pageX) {
     }
 }
 
+function moveTouch(clientX){
+    const fieldRect = widthField.getBoundingClientRect().left;
+    toggleMax.style.left = clientX - fieldRect - toggleMax.offsetWidth / 2 + "px";
+    greenBar.style.width = clientX - fieldRect - toggleMax.offsetWidth / 2 + "px";
+
+    const widthPaddingContainer = widthField.offsetWidth;
+    if (+greenBar.style.width.replace("px", "") > widthPaddingContainer) {
+        greenBar.style.width = widthPaddingContainer + "px"
+    } 
+    if (+greenBar.style.width.replace("px", "") < 0) {
+        greenBar.style.width = 0 + "px"
+    } 
+    if (+toggleMax.style.left.replace("px", "") > widthPaddingContainer) {
+        toggleMax.style.left = widthPaddingContainer - toggleMax.offsetWidth + "px" 
+    }
+    if (+toggleMax.style.left.replace("px", "") < 0) {
+        toggleMax.style.left = 0 + "px" 
+    }
+}
+
+
+//click to scaleBar
 scaleBar.addEventListener("click", function(evt){
     moveAt(evt.pageX)
 })
 
+//mousemove
 toggleMax.onmousedown = function(evt) {
     toggleMax.style.transform = "scale(1.1)"
 
@@ -46,6 +71,29 @@ toggleMax.onmousedown = function(evt) {
         document.removeEventListener('mousemove', onMouseMove);
         toggleMax.style.transform = "scale(1)"
         document.onmouseup = null;
+    }
+
+    toggleMax.ondragstart = function () {
+        return false
+    } 
+}
+
+//touchmove it code doesnt work
+toggleMax.ontouchstart = function(evt) {
+    toggleMax.style.transform = "scale(1.1)"
+
+    moveTouch(evt.targetTouches[0].clientX)
+
+    function onTouchMove (evt) {
+        moveTouch(evt.targetTouches[0].clientX)
+    }
+    
+    document.addEventListener("touchmove", onTouchMove)
+
+    document.ontouchend =  function (){  
+        document.removeEventListener('touchmove', onTouchMove);
+        toggleMax.style.transform = "scale(1)"
+        document.ontouchend = null;
     }
 
     toggleMax.ondragstart = function () {
