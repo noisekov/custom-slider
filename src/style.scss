@@ -14,9 +14,11 @@
     margin: 50px 0 0 50px;
 }
 .options {
+    display: flex;
+    flex-direction: column;
     padding: 10px;
     background-color: #c6c6c6;
-    margin-top: 50px;
+    margin-top: 30px;
     border: 1px solid #000;
     border-radius: 5px;
 }
@@ -47,4 +49,14 @@
     &.active {
         display: block;
     }
+}
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    height: 20px;
+}
+.progress-bar div {
+    height: inherit;
+    width: 20px;
 }

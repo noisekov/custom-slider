@@ -7,7 +7,26 @@ const greenBar = document.querySelector(".bar")
 const scaleBar = document.querySelector(".scale")
 const inputToggle = document.querySelector("#toggleTwo")
 
-//add toggle
+//min and max value input
+const inputMinValue = document.querySelector("#minValue")
+const inputMaxValue = document.querySelector("#maxValue")
+const barMinValue = document.querySelector(".progress-bar-min-value")
+const barMaxValue = document.querySelector(".progress-bar-max-value")
+
+barMinValue.innerText = inputMinValue.value
+inputMinValue.addEventListener("input", function() {
+    if (+inputMinValue.value < +inputMaxValue.value) {
+        barMinValue.innerText = inputMinValue.value
+    }
+})
+
+barMaxValue.innerText = inputMaxValue.value
+inputMaxValue.addEventListener("input", function() {
+    barMaxValue.innerText = inputMaxValue.value
+})
+
+
+//add second toggle
 inputToggle.addEventListener("click", function(){
     toggleMin.classList.toggle("active")
 
@@ -51,9 +70,8 @@ inputToggle.addEventListener("click", function(){
     //         return false
     //     } 
     // }
+
 })
-
-
 
 //move greenBar and toggleMax
 function moveAt(pageX) {

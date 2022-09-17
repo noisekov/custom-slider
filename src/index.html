@@ -13,11 +13,23 @@
             <div class="toggle toggle-min" tabindex="0" style="left: 20%;"></div>
             <div class="toggle toggle-max" tabindex="0" style="left: 50%;"></div>
         </div>
-        <div class="options">
+        <div class="progress-bar">
+            <div class="progress-bar-min-value"></div>
+            <div class="progress-bar-max-value"></div>
+        </div>
+        <form class="options">
             <label for="toggleTwo">
                 <input type="checkbox" id="toggleTwo"> Второй ползунок
             </label>
-        </div>
+            <label for="minValue">
+                from
+                <input type="number" id="minValue" value="0"> 
+            </label>
+            <label for="maxValue">
+                to
+                <input type="number" id="maxValue" value="100">
+            </label>
+        </form>
     </div>
     <script src="/main.js"></script>
 </body>
