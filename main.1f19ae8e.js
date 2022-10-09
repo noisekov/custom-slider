@@ -196,9 +196,74 @@ require("./style.scss");
 
 var toggleMin = document.querySelector(".toggle-min");
 var toggleMax = document.querySelector(".toggle-max");
-var widthField = document.querySelector(".range-field");
+var widthField = document.querySelector(".field");
 var greenBar = document.querySelector(".bar");
-var scaleBar = document.querySelector(".scale"); //move greenBar and toggleMax
+var scaleBar = document.querySelector(".scale");
+var inputToggle = document.querySelector("#toggleTwo"); //min and max value input
+
+var inputMinValue = document.querySelector("#minValue");
+var inputMaxValue = document.querySelector("#maxValue"); //значения минимимум и максимум 
+
+var barMinValue = document.querySelector(".progress-bar-min-value");
+var barMaxValue = document.querySelector(".progress-bar-max-value"); //поле ввода значения Минимум
+
+barMinValue.innerText = inputMinValue.value;
+inputMinValue.addEventListener("input", function () {
+  if (+inputMinValue.value < +inputMaxValue.value) {
+    barMinValue.innerText = inputMinValue.value;
+  }
+}); //поле ввода значения Максимум
+
+barMaxValue.innerText = inputMaxValue.value;
+inputMaxValue.addEventListener("input", function () {
+  barMaxValue.innerText = inputMaxValue.value;
+}); //шкала со значением минимум
+
+barMinValue.addEventListener("click", function () {
+  moveAt(0);
+  greenBar.style.width = 0;
+}); //шкала со значением максимум
+
+barMaxValue.addEventListener("click", function () {
+  toggleMax.style.left = scaleBar.offsetWidth - toggleMax.offsetWidth + "px";
+  greenBar.style.width = scaleBar.offsetWidth + "px";
+}); //add second toggle
+
+inputToggle.addEventListener("click", function () {
+  toggleMin.classList.toggle("active"); // move greenBar and toggleMin
+  // function moveAtMin(pageX) {
+  //     const fieldRect = widthField.getBoundingClientRect().left;
+  //     toggleMin.style.left = pageX - fieldRect - toggleMax.offsetWidth / 2 + "px";
+  //     greenBar.style.width = pageX - fieldRect - toggleMax.offsetWidth / 2 + "px";
+  //     const widthPaddingContainer = widthField.offsetWidth;
+  //     if (+greenBar.style.width.replace("px", "") > widthPaddingContainer) {
+  //         greenBar.style.width = widthPaddingContainer + "px"
+  //     } 
+  //     if (+greenBar.style.width.replace("px", "") < 0) {
+  //         greenBar.style.width = 0 + "px"
+  //     } 
+  //     if (+toggleMax.style.left.replace("px", "") > widthPaddingContainer) {
+  //         toggleMax.style.left = widthPaddingContainer - toggleMax.offsetWidth + "px" 
+  //     }
+  //     if (+toggleMax.style.left.replace("px", "") < 0) {
+  //         toggleMax.style.left = 0 + "px" 
+  //     }
+  // }
+  // toggleMin.onmousedown = function(evt) {
+  //     moveAtMin(evt.pageX)
+  //     function onMouseMove (evt) {
+  //         moveAtMin(evt.pageX)
+  //     }
+  //     document.addEventListener("mousemove", onMouseMove)
+  //     document.onmouseup = function () {
+  //         document.removeEventListener('mousemove', onMouseMove);
+  //         document.onmouseup = null;
+  //     }
+  //     toggleMin.ondragstart = function () {
+  //         return false
+  //     } 
+  // }
+}); //move greenBar and toggleMax
 
 function moveAt(pageX) {
   var fieldRect = widthField.getBoundingClientRect().left;
@@ -221,25 +286,7 @@ function moveAt(pageX) {
   if (+toggleMax.style.left.replace("px", "") < 0) {
     toggleMax.style.left = 0 + "px";
   }
-} //move greenBar and toggleMin
-// function moveAtMin(pageX) {
-//     const fieldRect = widthField.getBoundingClientRect().left;
-//     toggleMin.style.left = pageX - fieldRect - toggleMax.offsetWidth / 2 + "px";
-//     greenBar.style.width = pageX - fieldRect - toggleMax.offsetWidth / 2 + "px";
-//     const widthPaddingContainer = widthField.offsetWidth;
-//     if (+greenBar.style.width.replace("px", "") > widthPaddingContainer) {
-//         greenBar.style.width = widthPaddingContainer + "px"
-//     } 
-//     if (+greenBar.style.width.replace("px", "") < 0) {
-//         greenBar.style.width = 0 + "px"
-//     } 
-//     if (+toggleMax.style.left.replace("px", "") > widthPaddingContainer) {
-//         toggleMax.style.left = widthPaddingContainer - toggleMax.offsetWidth + "px" 
-//     }
-//     if (+toggleMax.style.left.replace("px", "") < 0) {
-//         toggleMax.style.left = 0 + "px" 
-//     }
-// }
+} //move touch
 
 
 function moveTouch(clientX) {
@@ -299,21 +346,7 @@ toggleMax.onmousedown = function (evt) {
   toggleMax.ondragstart = function () {
     return false;
   };
-}; // toggleMin.onmousedown = function(evt) {
-//     moveAtMin(evt.pageX)
-//     function onMouseMove (evt) {
-//         moveAtMin(evt.pageX)
-//     }
-//     document.addEventListener("mousemove", onMouseMove)
-//     document.onmouseup = function () {
-//         document.removeEventListener('mousemove', onMouseMove);
-//         document.onmouseup = null;
-//     }
-//     toggleMin.ondragstart = function () {
-//         return false
-//     } 
-// }
-//touchmove it code doesnt work
+}; //touchmove it code doesnt work
 
 
 toggleMax.ontouchstart = function (evt) {
@@ -364,7 +397,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61661" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50186" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
