@@ -2,6 +2,6 @@
 
 new Slider
 
-In this project i want to study OOP and MVC.
+I want to study OOP and MVC in this project. 
 
 https://noisekov.github.io/custom-slider/
