@@ -1,7 +1,3 @@
-# custom slider
-
-new Slider
-
-I want to study OOP and MVC in this project. 
+# Slider
 
 https://noisekov.github.io/custom-slider/
