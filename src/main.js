@@ -55,15 +55,10 @@ class Toggle {
 
   positionToggle(clickPosition) {
     const currentPositionToggleOne =
-      +this.$toggle.style.transform
-        .replace("translateX(", "")
-        .replace("px)", "") +
+      +this.$toggle.style.transform.replace(/[^0-9.-]+/g, "") +
       this.$toggle.offsetWidth / 2;
-
     const currentPositionToggleSecond =
-      +this.$secondToggle.style.transform
-        .replace("translateX(", "")
-        .replace("px)", "") +
+      +this.$secondToggle.style.transform.replace(/[^0-9.-]+/g, "") +
       this.$toggle.offsetWidth / 2;
     return Math.abs(clickPosition - currentPositionToggleOne) >
       Math.abs(clickPosition - currentPositionToggleSecond)
@@ -91,18 +86,15 @@ class Toggle {
     // }
 
     if (
-      +currentNeedToMoveToggle.style.transform
-        .replace("translateX(", "")
-        .replace("px)", "") > widthPaddingContainer
+      +currentNeedToMoveToggle.style.transform.replace(/[^0-9.-]+/g, "") >
+      widthPaddingContainer
     ) {
       currentNeedToMoveToggle.style.transform = `translateX(${
         widthPaddingContainer - currentNeedToMoveToggle.offsetWidth + "px"
       })`;
     }
     if (
-      +currentNeedToMoveToggle.style.transform
-        .replace("translateX(", "")
-        .replace("px)", "") < 0
+      +currentNeedToMoveToggle.style.transform.replace(/[^0-9.-]+/g, "") < 0
     ) {
       currentNeedToMoveToggle.style.transform = `translateX(${0 + "px"})`;
     }
@@ -126,8 +118,7 @@ class Toggle {
   //   }
   //   if (
   //     +this.$toggle.style.transform
-  //       .replace("translateX(", "")
-  //       .replace("px)", "") > widthPaddingContainer
+  //       .replace(/[^0-9.-]+/g, "") > widthPaddingContainer
   //   ) {
   //     this.$toggle.style.transform = `translateX(${
   //       widthPaddingContainer - this.$toggle.offsetWidth + "px"
@@ -135,8 +126,7 @@ class Toggle {
   //   }
   //   if (
   //     +this.$toggle.style.transform
-  //       .replace("translateX(", "")
-  //       .replace("px)", "") < 0
+  //       .replace(/[^0-9.-]+/g, "") < 0
   //   ) {
   //     this.$toggle.style.transform = `translateX(${0 + "px"})`;
   //   }
