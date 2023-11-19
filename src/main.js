@@ -4,8 +4,8 @@ const toggleMin = document.querySelector(".toggle-min");
 const toggleMax = document.querySelector(".toggle-max");
 
 class Toggle {
-  constructor(toggle, secondToggle) {
-    this.$toggle = toggle;
+  constructor(firstToggle, secondToggle) {
+    this.$firstToggle = firstToggle;
     this.$secondToggle = secondToggle;
     this.$scaleBar = document.querySelector(".scale");
     // this.$greenBar = document.querySelector(".bar");
@@ -15,7 +15,7 @@ class Toggle {
 
   init() {
     this.$scaleBar.onmousedown = (evt) => {
-      this.moveAt(evt.pageX);
+      this.moveToggle(evt.pageX);
 
       this.onMouseUp = this.onMouseUp.bind(this);
       this.onMouseMove = this.onMouseMove.bind(this);
@@ -24,19 +24,19 @@ class Toggle {
       document.addEventListener("mouseup", this.onMouseUp);
     };
 
-    // this.$scaleBar.ontouchstart = (evt) => {
-    //   this.moveTouch(evt.targetTouches[0].clientX);
+    this.$scaleBar.ontouchstart = (evt) => {
+      this.moveToggle(evt.targetTouches[0].clientX);
 
-    //   this.onTouchMove = this.onTouchMove.bind(this);
-    //   this.touchEnd = this.touchEnd.bind(this);
+      this.onTouchMove = this.onTouchMove.bind(this);
+      this.touchEnd = this.touchEnd.bind(this);
 
-    //   document.addEventListener("touchmove", this.onTouchMove);
-    //   document.addEventListener("touchend", this.touchEnd);
-    // };
+      document.addEventListener("touchmove", this.onTouchMove);
+      document.addEventListener("touchend", this.touchEnd);
+    };
   }
 
   onMouseMove(evt) {
-    this.moveAt(evt.pageX);
+    this.moveToggle(evt.pageX);
   }
 
   onMouseUp() {
@@ -44,41 +44,41 @@ class Toggle {
     document.removeEventListener("mouseup", this.onMouseUp);
   }
 
-  // onTouchMove(evt) {
-  //   this.moveTouch(evt.targetTouches[0].clientX);
-  // }
+  onTouchMove(evt) {
+    this.moveToggle(evt.targetTouches[0].clientX);
+  }
 
-  // touchEnd() {
-  //   document.removeEventListener("touchmove", this.onTouchMove);
-  //   document.removeEventListener("touchend", this.touchEnd);
-  // }
+  touchEnd() {
+    document.removeEventListener("touchmove", this.onTouchMove);
+    document.removeEventListener("touchend", this.touchEnd);
+  }
 
   positionToggle(clickPosition) {
     const currentPositionToggleOne =
-      +this.$toggle.style.transform.replace(/[^0-9.-]+/g, "") +
-      this.$toggle.offsetWidth / 2;
+      +this.$firstToggle.style.transform.replace(/[^0-9.-]+/g, "") +
+      this.$firstToggle.offsetWidth / 2;
     const currentPositionToggleSecond =
       +this.$secondToggle.style.transform.replace(/[^0-9.-]+/g, "") +
-      this.$toggle.offsetWidth / 2;
+      this.$firstToggle.offsetWidth / 2;
     return Math.abs(clickPosition - currentPositionToggleOne) >
       Math.abs(clickPosition - currentPositionToggleSecond)
       ? this.$secondToggle
-      : this.$toggle;
+      : this.$firstToggle;
   }
 
-  moveAt(pageX) {
+  moveToggle(position) {
     const fieldRect = this.$field.getBoundingClientRect().left;
-    const currentClickPosition = pageX - fieldRect;
+    const currentClickPosition = position - fieldRect;
 
-    const currentNeedToMoveToggle = this.positionToggle(currentClickPosition);
+    const toggleWhichNeedMove = this.positionToggle(currentClickPosition);
 
-    currentNeedToMoveToggle.ondragstart = () => false;
+    toggleWhichNeedMove.ondragstart = () => false;
 
-    currentNeedToMoveToggle.style.transform = `translateX(${
-      pageX - fieldRect - currentNeedToMoveToggle.offsetWidth / 2 + "px"
+    toggleWhichNeedMove.style.transform = `translateX(${
+      position - fieldRect - toggleWhichNeedMove.offsetWidth / 2 + "px"
     })`;
     // this.$greenBar.style.width =
-    //   pageX - fieldRect - this.$toggle.offsetWidth / 2 + "px";
+    //   position - fieldRect - this.$toggle.offsetWidth / 2 + "px";
 
     const widthPaddingContainer = this.$field.offsetWidth;
     // if (+this.$greenBar.style.width.replace("px", "") > widthPaddingContainer) {
@@ -86,51 +86,17 @@ class Toggle {
     // }
 
     if (
-      +currentNeedToMoveToggle.style.transform.replace(/[^0-9.-]+/g, "") >
+      +toggleWhichNeedMove.style.transform.replace(/[^0-9.-]+/g, "") >
       widthPaddingContainer
     ) {
-      currentNeedToMoveToggle.style.transform = `translateX(${
-        widthPaddingContainer - currentNeedToMoveToggle.offsetWidth + "px"
+      toggleWhichNeedMove.style.transform = `translateX(${
+        widthPaddingContainer - toggleWhichNeedMove.offsetWidth + "px"
       })`;
     }
-    if (
-      +currentNeedToMoveToggle.style.transform.replace(/[^0-9.-]+/g, "") < 0
-    ) {
-      currentNeedToMoveToggle.style.transform = `translateX(${0 + "px"})`;
+    if (+toggleWhichNeedMove.style.transform.replace(/[^0-9.-]+/g, "") < 0) {
+      toggleWhichNeedMove.style.transform = `translateX(${0 + "px"})`;
     }
   }
-
-  // moveTouch(clientX) {
-  //   this.$toggle.ondragstart = () => false;
-
-  //   const fieldRect = this.$field.getBoundingClientRect().left;
-
-  //   this.$toggle.style.transform = `translateX(${
-  //     clientX - fieldRect - this.$toggle.offsetWidth / 2 + "px"
-  //   })`;
-  //   this.$greenBar.style.width =
-  //     clientX - fieldRect - this.$toggle.offsetWidth / 2 + "px";
-
-  //   const widthPaddingContainer = this.$field.offsetWidth;
-
-  //   if (+this.$greenBar.style.width.replace("px", "") > widthPaddingContainer) {
-  //     this.$greenBar.style.width = widthPaddingContainer + "px";
-  //   }
-  //   if (
-  //     +this.$toggle.style.transform
-  //       .replace(/[^0-9.-]+/g, "") > widthPaddingContainer
-  //   ) {
-  //     this.$toggle.style.transform = `translateX(${
-  //       widthPaddingContainer - this.$toggle.offsetWidth + "px"
-  //     })`;
-  //   }
-  //   if (
-  //     +this.$toggle.style.transform
-  //       .replace(/[^0-9.-]+/g, "") < 0
-  //   ) {
-  //     this.$toggle.style.transform = `translateX(${0 + "px"})`;
-  //   }
-  // }
 }
 
 new Toggle(toggleMax, toggleMin);
