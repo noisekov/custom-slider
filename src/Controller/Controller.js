@@ -1,17 +1,11 @@
-export default class Observer {
+import Modal from "../Modal/modal";
+import Observer from "../Observer/Observer";
+import View from "../View/View";
+
+export default class Controller extends Observer {
   constructor() {
-    this.observers = [];
-  }
-
-  subscribe(observer) {
-    this.observers.push(observer);
-  }
-
-  unsubscribe(observer) {
-    this.observers = this.observers.filter((obs) => obs !== observer);
-  }
-
-  notify(data) {
-    this.observers.forEach((observer) => observer.update(data));
+    super();
+    this.view = new View();
+    this.modal = new Modal();
   }
 }

@@ -1,9 +1,9 @@
+import Controller from "./Controller/Controller";
 import "./style.scss";
-import View from "./View/View";
 
-class Toggle {
+class Slider {
   constructor() {
-    this.model = new View();
+    this.controller = new Controller();
   }
 }
-new Toggle();
+new Slider();

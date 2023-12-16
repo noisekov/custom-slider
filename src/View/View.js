@@ -1,8 +1,5 @@
-import Controller from "../Controller/controller";
-
-export default class View extends Controller {
+export default class View {
   constructor() {
-    super();
     this.firstToggle = document.querySelector(".toggle-min");
     this.secondToggle = document.querySelector(".toggle-max");
     this.scaleBar = document.querySelector(".scale");
