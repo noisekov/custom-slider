@@ -1,11 +1,15 @@
+import Toggle from "./Toggle/Toggle";
+
 export default class View {
   constructor() {
-    this.firstToggle = document.querySelector(".toggle-min");
-    this.secondToggle = document.querySelector(".toggle-max");
     this.scaleBar = document.querySelector(".scale");
     this.greenBar = document.querySelector(".bar");
     this.field = document.querySelector(".field");
     this.init();
+  }
+
+  update(countToggle) {
+    [this.firstToggle, this.secondToggle] = new Toggle(countToggle).create();
   }
 
   init() {

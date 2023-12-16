@@ -2,8 +2,8 @@ import Controller from "./Controller/Controller";
 import "./style.scss";
 
 class Slider {
-  constructor() {
-    this.controller = new Controller();
+  constructor(toggleCount) {
+    this.controller = new Controller(toggleCount);
   }
 }
-new Slider();
+new Slider(2);

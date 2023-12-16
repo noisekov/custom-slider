@@ -1,3 +1,5 @@
 export default class Modal {
-  constructor() {}
+  constructor(toggleCount) {
+    this.toggleCount = toggleCount;
+  }
 }
